@@ -1,4 +1,4 @@
-import {User} from "../models/user.model";
+import {User} from "../models";
 
 export interface UsersResponse {
   page: number;
@@ -12,4 +12,9 @@ export interface UsersResponse {
 export interface Support {
   url: string;
   text: string;
+}
+
+export interface UserResponse {
+  data: User;
+  support: Support;
 }

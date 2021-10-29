@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {User} from "../models/user.model";
+import {User} from "../models";
 import {environment} from "../../environments/environment";
 import {RegresEndpointsEnums} from "../enums";
 import {map} from "rxjs/operators";
-import {UsersResponse} from "../interfaces";
+import {UserResponse, UsersResponse} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,14 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<UsersResponse>(`${this.url}${RegresEndpointsEnums.USERS}`)
+    return this.http.get<UsersResponse>(`${this.url}${RegresEndpointsEnums.USERS}?delay=3`)
+      .pipe(
+        map(response => response.data)
+      );
+  }
+
+  getUserById(userId: string): Observable<User> {
+    return this.http.get<UserResponse>(`${this.url}${RegresEndpointsEnums.USERS}${userId}`)
       .pipe(
         map(response => response.data)
       );
